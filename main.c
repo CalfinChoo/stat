@@ -31,9 +31,40 @@ int main() {
     m = 1000;
   }
   else sprintf(metric, "%s", "B");
-
-  sprintf(buffer, "%d %s", fs/m, metric);
+  
+  sprintf(buffer, "%0.1lf %s", (double)fs/m, metric);
   printf("File size: %s\n", buffer);
-  char pbuffer[40];
-  printf("Permissions: %s\n", "placeholder");
-}
+  char pbuffer[7];
+  sprintf(pbuffer, "%o", sb.st_mode);
+  int i = 3;
+  printf("Permissions: -");
+  for (; i < 7; i++) {
+    switch (pbuffer[i] - 48){
+      case 0:
+        printf("---");
+        break;
+      case 1:
+        printf("--x");
+        break;
+      case 2:
+        printf("-w-");
+        break;
+      case 3:
+        printf("-wx");
+        break;
+      case 4:
+        printf("r--");
+        break;
+      case 5:
+        printf("r-x");
+        break;
+      case 6:
+        printf("rw-");
+        break;
+      case 7:
+        printf("rwx");
+        break;
+    }
+  }
+  printf("\n\n");
+ }
